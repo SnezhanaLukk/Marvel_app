@@ -29,8 +29,10 @@ class RandomChar extends Component {
             error: true
         })
     }
+
     updateChar = () => {
-        const id = Math.floor(Math.random() * 19 - 1) || 1
+        const id = Math.floor(Math.random() * 19 - 1) || 1;
+        this.setState({ loading: true });
         this.marvelService
             .getCharacter(id)
             .then(this.onCharLoaded)
@@ -41,7 +43,7 @@ class RandomChar extends Component {
         const { char, loading, error } = this.state;
         const errorMessage = error ? <ErrorMessage /> : null;
         const spinner = loading ? <Spinner /> : null;
-        const content = !(loading || error) ? <View char={char} /> : null
+        const content = !(loading || error) ? <View char={char} /> : null;
         return (
             <div className="randomchar">
                 {errorMessage}
@@ -78,10 +80,10 @@ const View = ({ char }) => {
                     {endDescription}
                 </p>
                 <div className="randomchar__btns">
-                    <a href={homepage} className="button button__main">
+                    <a href={homepage} className="button button__main" target='_blank'>
                         <div className="inner">homepage</div>
                     </a>
-                    <a href={wiki} className="button button__secondary">
+                    <a href={wiki} className="button button__secondary" target='_blank'>
                         <div className="inner">Wiki</div>
                     </a>
                 </div>

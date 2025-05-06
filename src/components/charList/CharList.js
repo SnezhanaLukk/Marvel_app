@@ -49,6 +49,7 @@ class CharList extends Component {
             .catch(this.onError);
     }
 
+
     loadMoreCharacters = () => {
         const { offset, loadMoreLimit } = this.state;
         this.setState({ newItemsLoading: true });
@@ -76,7 +77,7 @@ class CharList extends Component {
         const { onCharSelected } = this.props;
 
         return (
-            <ul className="char__grid">
+            <ul className="char__grid" key='23456098'>
                 {arr.map(item => (
                     <li className="char__item "
                         key={item.id}
