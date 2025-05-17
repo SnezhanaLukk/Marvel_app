@@ -80,10 +80,10 @@ const View = ({ char }) => {
                     {endDescription}
                 </p>
                 <div className="randomchar__btns">
-                    <a href={homepage} className="button button__main" target='_blank'>
+                    <a href={homepage} className="button button__main" target='_blank' rel="noopener noreferrer">
                         <div className="inner">homepage</div>
                     </a>
-                    <a href={wiki} className="button button__secondary" target='_blank'>
+                    <a href={wiki} className="button button__secondary" target='_blank' rel="noopener noreferrer">
                         <div className="inner">Wiki</div>
                     </a>
                 </div>

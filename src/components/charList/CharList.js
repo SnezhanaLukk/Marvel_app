@@ -1,8 +1,11 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import MarvelService from '../../services/MarvelService';
+
 import './charList.scss';
+
+import PropTypes from "prop-types";
 
 class CharList extends Component {
     constructor(props) {
@@ -15,7 +18,8 @@ class CharList extends Component {
             initialLimit: 9,
             loadMoreLimit: 3,
             newItemsLoading: false,
-            charEnded: false
+            charEnded: false,
+
         }
         this.marvelService = new MarvelService();
         this.abortController = new AbortController();
@@ -73,15 +77,37 @@ class CharList extends Component {
         });
     }
 
+    itemRefs = [];
+
+    setRef = (ref) => {
+        this.itemRefs.push(ref);
+    }
+
+    focusOnID = (id) => {
+        this.itemRefs.forEach(item => item.classList.remove('char__item_selected'));
+        this.itemRefs[id].classList.add('char__item_selected');
+        this.itemRefs[id].focus();
+    }
+
     renderItems(arr) {
-        const { onCharSelected } = this.props;
+        // const { onCharSelected } = this.props;
 
         return (
             <ul className="char__grid" key='23456098'>
                 {arr.map(item => (
                     <li className="char__item "
                         key={item.id}
-                        onClick={() => onCharSelected(item.id)}>
+                        ref={this.setRef}
+                        onClick={() => {
+                            this.props.onCharSelected(item.id);
+                            this.focusOnID(item.id - 1)
+                        }}
+                        onKeyUp={(e) => {
+                            if (e.key === ' ' || e.key === 'Enter') {
+                                this.props.onCharSelected(item.id);
+                                this.focusOnID(item.id - 1);
+                            }
+                        }}>
                         <img src={item.thumbnail} alt={item.name} style={{ 'objectFit': 'cover' }} />
                         <div className="char__name">{item.name}</div>
                     </li>
@@ -112,6 +138,10 @@ class CharList extends Component {
             </div>
         )
     }
+}
+
+CharList.propTypes = {
+    onCharSelected: PropTypes.func.isRequired
 }
 
 export default CharList;
