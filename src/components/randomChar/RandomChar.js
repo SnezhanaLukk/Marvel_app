@@ -4,7 +4,7 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import useMarvelService from '../../services/MarvelService';
 
 import './randomChar.scss';
-import mjolnir from '../../resources/img/mjolnir.png';
+import mjolnir from '../../resources/img/mjolnir.svg';
 
 const RandomChar = () => {
 
